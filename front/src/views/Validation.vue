@@ -1,8 +1,5 @@
 <template>
   <div class="container">
-    <div v-if="User">
-      <p>Hi {{ User }}</p>
-    </div>
     <div class="posts" v-if="Inscrioptions">
       <ul>
         <li v-for="inscription in Inscrioptions" :key="inscription.id">
@@ -13,8 +10,8 @@
             <p>{{ inscription.email }}</p>
             <p>{{ inscription.validated }}</p>
 
-           <button> validate</button>
-           butto 
+           <button type="submit" > validate</button>
+            
           </div>
         </li>
       </ul>
@@ -39,18 +36,18 @@ export default {
   },
   created: function() {
     // a function to call getposts action
-    this.GetPosts()
+    this.GetInscriptions()
   },
   computed: {
     ...mapGetters({ Inscriptions: "StateInscriptions", User: "StateUser" }),
   },
   methods: {
     ...mapActions([ "GetInscriptions"]),
-    async submit() {
+    async submit(id) {
       try {
-        await this.CreatePost(this.form);
+        await this. confirmInscriptions({ id }) ;
       } catch (error) {
-        throw "Sorry you can't make a post now!"
+        throw "Sorry!"
       }
     },
   },

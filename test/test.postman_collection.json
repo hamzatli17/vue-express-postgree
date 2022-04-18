@@ -124,6 +124,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "VakidateToken",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},

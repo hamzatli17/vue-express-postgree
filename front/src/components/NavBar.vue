@@ -1,11 +1,12 @@
 <template>
   <div id="nav">
-    <router-link to="/validation">validation</router-link> |
+   |
     <span v-if="isLoggedIn">
-      <a @click="logout">Logout</a>
+        <router-link to="/validation">validation</router-link>|
+      <a @click="logout">Logout</a>|
     </span>
     <span v-else>
-      <router-link to="/login">Login</router-link>
+      <router-link to="/">Login</router-link>
     </span>
   </div>
 </template>
@@ -20,7 +21,7 @@ export default {
   methods: {
     async logout() {
       await this.$store.dispatch("LogOut");
-      this.$router.push("/login");
+      this.$router.push("/");
     },
   },
 };

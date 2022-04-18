@@ -24,7 +24,8 @@ const actions = {
   },
 
   async GetInscriptions({ commit }) {
-    let response = await axios.get("api/inscriptions/all");
+    let response = await axios.get("/api/inscriptions/all");
+    console.log(response.data)
     commit("setInscriptions", response.data);
   },
 
