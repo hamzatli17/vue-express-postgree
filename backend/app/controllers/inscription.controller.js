@@ -1,8 +1,6 @@
 const db = require("../models");
 const inscription = db.inscriptions;
 const EmailService = require("../email/EmailService");
-const bcrypt = require("bcryptjs");
-const generateToken = require("../utils/generateToken");
 const EmailException = require('../email/EmailException');
 const jwt = require("jsonwebtoken");
 const inscriptionController = {
@@ -31,21 +29,43 @@ const inscriptionController = {
       return res.status(500).send(error);
     }
   },
-  confirm: async (req, res) => {
-    console.log("here11");
+  validate: async (req, res) => {
+    
     try {
-      const id = req.params;
       const inscrip = await inscription.findByPk(req.params.id);
+      inscrip.validated = true;
+      inscrip.save();
+      try {
+        await EmailService.sendActivation(inscrip.email);
+       
+      } catch (err) {
+      
+        throw new EmailException();
+      }
+      res.status(201).send(inscrip);
+
+    } catch (error) {
+      const status = error.status ? error.status : 400;
+      res.status(status).end();
+    }
+  },
+  validateToken: async (req, res) => {
+    try {
+
+
+      const {id} =req.params;
+      const inscrip = await inscription.findByPk(req.params.id);
+    
       const SECRET = "shifhhfjkzwudhiihoh1234";
       const token = jwt.sign({ id }, SECRET, {
         expiresIn: "60s",
       });
-
-      inscrip.validated = true;
+      console.log( token )
       inscrip.baerer_token = token;
       inscrip.save();
+      console.log( inscrip.baerer_token )
       try {
-        await EmailService.sendActivation(inscrip.email,  inscrip.baerer_token);
+        await EmailService.sendActivation(inscrip.email, token);
        
       } catch (err) {
       

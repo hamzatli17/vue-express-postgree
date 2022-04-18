@@ -1,8 +1,8 @@
 module.exports = {
     get: {
-        tags: ["User-resource"],
-        description: "Get User",
-        operationId: "getUser",
+        tags: ["Inscription-resource"],
+        description: "Get Inscription",
+        operationId: "getInscription",
         security: [
             {
                 ApiKeyAuth: [],
@@ -16,7 +16,7 @@ module.exports = {
                     $ref: "#/components/schemas/id",
                 },
                 required: true,
-                description: "Get a done User",
+                description: "Get a done inscription",
             },
         ],
         responses: {
@@ -24,7 +24,7 @@ module.exports = {
                 content: {
                     "application/json": {
                         schema: {
-                            items: { $ref: "#/components/schemas/User" },
+                            items: { $ref: "#/components/schemas/Inscription" },
                         },
                     },
                 },

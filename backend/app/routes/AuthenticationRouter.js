@@ -17,6 +17,10 @@ router.post('/',  async (req, res, next) => {
   if (!user) {
     return next(new AuthenticationException());
   }
+ 
+  if (user.password !== req.body.passsword ) {
+    return next(new AuthenticationException());
+  }
   const SECRET = "shifhhfjkzwudhiihoh1234";
       const token = jwt.sign({ user_id}, SECRET, {
         expiresIn: "60s",
@@ -31,7 +35,9 @@ router.post('/',  async (req, res, next) => {
   const authorization = req.headers.authorization;
   if (authorization) {
     const token = authorization.substring(7);
-    await TokenService.deleteToken(token);
+    res.clearCookie('token')
+    console.log(token)
+    //await TokenService.deleteToken(token);
   }
   res.send();
 }); 
