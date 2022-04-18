@@ -19,8 +19,7 @@ const actions = {
     await commit("setUser", user.get("user_id"));
   },
 
-  async confirmInscriptions({ commit }) {
-    let inscription = await axios.get(`api/inscriptions/${id}`);
+  async confirmInscriptions({ id }) {
     await axios.put(`api/inscriptions/confirm/${id}`);
   },
 
@@ -37,14 +36,14 @@ const actions = {
 
 const mutations = {
   setUser(state, user_id) {
-    state.user = username;
+    state.user = user_id;
   },
 
   setInscriptions(state, inscriptions) {
     state.inscriptions = inscriptions;
   },
-  logout(state, user) {
-    state.user = user;
+  logout(state, user_id) {
+    state.user = user_id;
   },
 };
 

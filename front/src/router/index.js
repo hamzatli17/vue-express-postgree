@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "../store";
 import Home from "../views/Home.vue";
-import Register from "../views/Register";
 import Login from "../views/Login";
 import Validation from "../views/Validation";
 
